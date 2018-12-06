@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .container {
   min-height: 100vh;
   padding: 10vh;
@@ -101,18 +101,24 @@ export default {
   margin-bottom: 50px;
 }
 
-.ant-btn-primary {
-  background-color: #FF6E40;
-  border-color: #FF6E40;
-}
-
-.ant-btn-primary:hover {
-  background-color: #e56339;
-  border-color: #e56339;
-}
-
-.ant-btn-primary:focus {
-  background-color: #ff8b66;
-  border-color: #ff8b66;
+.ant-form {
+  width: 500px;
+  .ant-btn-primary {
+    background-color: #FF6E40;
+    border-color: #FF6E40;
+    &:hover {
+      background-color: #e56339;
+      border-color: #e56339;
+    }
+    &:focus {
+      background-color: #ff8b66;
+      border-color: #ff8b66;
+    }
+    &[disabled] {
+      background-color: #FF5252;
+      border-color: #FF5252;
+      color: #ffffff;
+    }
+  }
 }
 </style>
