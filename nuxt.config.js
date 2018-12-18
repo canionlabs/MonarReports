@@ -27,7 +27,6 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    // 'element-ui/lib/theme-chalk/index.css'
     'ant-design-vue/dist/antd.css'
   ],
 
@@ -35,8 +34,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/ant'
-    // '@/plugins/element-ui'
+    '@/plugins/ant',
+    '@/plugins/axios'
   ],
 
   /*
@@ -51,6 +50,10 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  env: {
+    apiUrl: process.env.API_URL || 'http://localhost:8000/api/v1/'
   },
 
   /*
