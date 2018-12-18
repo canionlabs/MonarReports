@@ -45,16 +45,13 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import doAuth from '@/utils/auth.js'
-// import login from '~/utils/auth'
 
 function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
 export default {
-  components: {
-    Logo
-  },
+  middleware: 'notAuthenticated',
   data() {
     return {
       hasErrors,
@@ -64,7 +61,9 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.form.validateFields()
+      if (this.form) {
+        this.form.validateFields()
+      }
     })
   },
   methods: {
@@ -90,7 +89,11 @@ export default {
           doAuth(data)
             .then(response => {
               this.validationError = false
-              this.$store.dispatch('login', data.username, response.data.token)
+              console.info(response)
+              this.$store.dispatch('login', {
+                username: data.username,
+                token: response.data.token
+              })
               this.$router.push('/reports')
             })
             .catch(error => {

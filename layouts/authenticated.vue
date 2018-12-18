@@ -21,6 +21,10 @@
           <a-icon type="shopping-cart" />
           <span>Pagamentos</span>
         </a-menu-item>
+        <a-menu-item @click="logoutHandler()" key="4">
+          <a-icon type="logout" />
+          <span>Sair</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -44,6 +48,10 @@ export default {
     toggleCollapsed () {
       this.collapsed = !this.collapsed
     },
+    logoutHandler () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    }
   },
 }
 </script>

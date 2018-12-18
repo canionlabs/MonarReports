@@ -103,6 +103,7 @@ const data = [{
 
 
 export default {
+  middleware: 'authenticated',
   layout: 'authenticated',
   data() {
     return {
