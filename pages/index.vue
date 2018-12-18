@@ -4,12 +4,12 @@
       <img src="~/assets/logo-monar.png" width="250"/>
     </a-row>
     <a-row class="content" type="flex" justify="center">
-      <a-form layout='vertical' :autoFormCreate="(form)=>{this.form = form}">
+      <a-form @submit="handleSubmit" layout='vertical' :autoFormCreate="(form)=>{this.form = form}">
         <template v-if="form">
           <a-form-item
-            :validateStatus="userNameError() ? 'error' : ''"
-            :help="userNameError() || ''"
-            fieldDecoratorId="userName"
+            :validateStatus="usernameError() || formStatus() ? 'error' : ''"
+            :help="usernameError() || ''"
+            fieldDecoratorId="username"
             :fieldDecoratorOptions="{rules: [{ required: true, message: 'Informe seu usuário!' }]}"
           >
             <a-input placeholder='Usuário'>
@@ -17,7 +17,7 @@
             </a-input>
           </a-form-item>
           <a-form-item
-            :validateStatus="passwordError() ? 'error' : ''"
+            :validateStatus="passwordError() || formStatus() ? 'error' : ''"
             :help="passwordError() || ''"
             fieldDecoratorId="password"
             :fieldDecoratorOptions="{rules: [{ required: true, message: 'Informe sua senha!' }]}"
@@ -44,6 +44,8 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import doAuth from '@/utils/auth.js'
+// import login from '~/utils/auth'
 
 function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field])
@@ -56,31 +58,44 @@ export default {
   data() {
     return {
       hasErrors,
+      validationError: false,
       form: null
     }
   },
   mounted () {
     this.$nextTick(() => {
-      // To disabled submit button at the beginning.
       this.form.validateFields()
     })
   },
   methods: {
-    // Only show error after a field is touched.
-    userNameError () {
+    usernameError () {
       const { getFieldError, isFieldTouched } = this.form
-      return isFieldTouched('userName') && getFieldError('userName')
+      return isFieldTouched('username') && getFieldError('username')
     },
-    // Only show error after a field is touched.
     passwordError () {
       const { getFieldError, isFieldTouched } = this.form
       return isFieldTouched('password') && getFieldError('password')
     },
+    formStatus () {
+      return this.validationError
+    },
+    formError (text) {
+      this.$message.error(text, 7)
+      this.validationError = true
+    },
     handleSubmit  (e) {
       e.preventDefault()
-      this.form.validateFields((err, values) => {
+      this.form.validateFields((err, data) => {
         if (!err) {
-          console.log('Received values of form: ', values)
+          doAuth(data)
+            .then(response => {
+              this.validationError = false
+              this.$store.dispatch('login', data.username, response.data.token)
+              this.$router.push('/reports')
+            })
+            .catch(error => {
+              this.formError("Os dados fornecidos estão incorretos. Verifique seu usuário e senha.")
+            })
         }
       })
     },
@@ -104,8 +119,8 @@ export default {
 .ant-form {
   width: 500px;
   .ant-btn-primary {
-    background-color: #FF6E40;
-    border-color: #FF6E40;
+    background-color: #25bc5a;
+    border-color: #25bc5a;
     &:hover {
       background-color: #e56339;
       border-color: #e56339;
