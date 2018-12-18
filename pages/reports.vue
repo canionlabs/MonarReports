@@ -57,6 +57,48 @@ const data = [{
   module: 'Refrigerador 1',
   temperature: '12 ˚C',
   humidity: '80%',
+}, {
+  key: '4',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
+}, {
+  key: '5',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
+}, {
+  key: '6',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
+}, {
+  key: '7',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
+}, {
+  key: '8',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
+}, {
+  key: '9',
+  date: '12/12/2019',
+  schedule: '12:12:12',
+  module: 'Refrigerador 1',
+  temperature: '12 ˚C',
+  humidity: '80%',
 }];
 
 
